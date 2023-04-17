@@ -1,14 +1,48 @@
 html {
   height: 100%;
   width: 100%;
-  font-family: "Titillium Web", sans-serif;
+  font-family: "Comic Sans MS", 
 }
 
-body {
-  min-height: 100%;
-  min-width: 100%;
-  background: linear-gradient(pink, violet);
-}
+<body>
+  <div id="main-content">
+    <!-- ... list and form elements ... -->
+    <div id="size-indicator"></div>
+  </div>
+  <script>
+    const createTaskForm = document.querySelector('#create-task-form');
+    const tasksList = document.querySelector('#tasks');
+    const sizeIndicator = document.querySelector('#size-indicator');
+    let size = 100;
+    let colors = ['hotpink', 'hotpurple'];
+    let colorIndex = 0;
+    setInterval(function() {
+      sizeIndicator.style.backgroundColor = colors[colorIndex];
+      colorIndex = (colorIndex + 1) % colors.length;
+    }, 50);
+    createTaskForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const newTaskInput = document.querySelector('#new-task-description');
+      const taskDescription = newTaskInput.value;
+      const newTask = document.createElement('li');
+      newTask.textContent = taskDescription;
+      tasksList.appendChild(newTask);
+      newTaskInput.value = '';
+      size += 10;
+      sizeIndicator.style.width = size + 'px';
+    });
+  </script>
+  <style>
+    body {
+      background-color: #e014f3;
+      /* Add an animated color transition */
+      transition: background-color 1s ease-in-out;
+    }
+    body:hover {
+      background-color: #f72dcb;
+    }
+  </style>
+</body>
 
 button {
   font-size: 7px;
